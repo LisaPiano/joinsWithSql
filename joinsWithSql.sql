@@ -26,12 +26,23 @@ WHERE Reviews.Rating = 5;*/
  
 /* joins: find the employee with the most total quantity sold.  use the sum() function and group by */
 
-/*SELECT Sales.Quantity, Sales.EmployeeID, Employees.FirstName, Employees.LastName FROM Sales
+SELECT SUM(Sales.Quantity) AS 'TotalSales', Sales.EmployeeID, Employees.FirstName, Employees.LastName FROM Sales
 INNER JOIN Employees ON Sales.EmployeeID = Employees.EmployeeID
-ORDER BY Sales.Quantity Desc;*/
+GROUP BY Employees.EmployeeID
+ORDER BY TotalSales Desc
+LIMIT 2;
 
 
 /* joins: find the name of the department, and the name of the category for Appliances and Games */
+
+
+select Departments.Name AS 'Department Name', Categories.Name AS 'Category Name' FROM Departments
+INNER JOIN Categories ON departments.departmentID = Categories.departmentID
+WHERE categories.Name = 'Appliances' OR categories.Name = 'Games';
+
+
+
+
 
 /* joins: find the product name, total # sold, and total price sold,
  for Eagles: Hotel California --You may need to use SUM() */
