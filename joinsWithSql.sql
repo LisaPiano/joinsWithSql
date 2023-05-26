@@ -36,20 +36,26 @@ LIMIT 2;
 /* joins: find the name of the department, and the name of the category for Appliances and Games */
 
 
-select Departments.Name AS 'Department Name', Categories.Name AS 'Category Name' FROM Departments
-INNER JOIN Categories ON departments.departmentID = Categories.departmentID
-WHERE categories.Name = 'Appliances' OR categories.Name = 'Games';
-
-
+select D.Name AS 'Department Name', C.Name AS 'Category Name' FROM Departments AS D
+INNER JOIN Categories AS C ON D.departmentID = C.departmentID
+WHERE C.Name = 'Appliances' OR C.Name = 'Games';
 
 
 
 /* joins: find the product name, total # sold, and total price sold,
  for Eagles: Hotel California --You may need to use SUM() */
+ 
+ SELECT P.Name AS 'Product Name', Sum(S.Quantity) AS 'Total # Sold', Sum(S.PricePerUnit * S.Quantity) AS 'Total Price Sold' 
+ FROM Products AS P
+ INNER JOIN Sales AS S ON P.ProductID = S.ProductID
+ WHERE P.ProductID = 97;
+ 
 
 /* joins: find Product name, reviewer name, rating, and comment on the Visio TV. (only return for the lowest rating!) */
 
-
+SELECT P.Name AS 'Product Name', R.Reviewer AS 'Reviewer Name', R.Rating AS 'Worst Rating', R.Comment AS 'Comment' FROM Products AS P
+INNER JOIN REVIEWS AS R ON P.ProductID = R.ProductID 
+WHERE P.Name = 'Visio TV' AND R.Rating = 1;
 -- ------------------------------------------ Extra - May be difficult
 /* Your goal is to write a query that serves as an employee sales report.
 This query should return:
@@ -57,3 +63,11 @@ This query should return:
 -  the employee's first and last name
 -  the name of each product
 -  and how many of that product they sold */
+
+SELECT E.EmployeeID AS 'Employee ID', E.FirstName AS 'Employee First Name', E.LastName AS 'Employee Last Name', P.name AS 'Product Name',
+ SUM(S.Quantity) AS 'Number of Products Sold'
+FROM Sales AS S
+ INNER JOIN Employees AS E ON E.EmployeeID = S.EmployeeID
+ INNER JOIN Products AS P on P.ProductID = S.ProductID
+ Group By E.EmployeeID, P.ProductID
+ ORDER BY SUM(S.Quantity) desc;
