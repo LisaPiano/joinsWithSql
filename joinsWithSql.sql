@@ -14,8 +14,22 @@ WHERE C.Name = 'Computers';
 
  
 /* joins: find all product names, product prices, and products ratings that have a rating of 5 */
+
+/*SELECT P.Name, P.Price, R.Rating FROM Products AS P
+INNER JOIN Reviews AS R ON R.ProductID = P.ProductID
+WHERE R.Rating = 5;*/
+
+/*SELECT Products.Name AS 'Product Names', Products.Price AS 'Product Prices', Reviews.Rating AS 'Product Rating Of 5' FROM Products
+INNER JOIN Reviews ON Reviews.ProductID = Products.ProductID
+WHERE Reviews.Rating = 5;*/
+
  
 /* joins: find the employee with the most total quantity sold.  use the sum() function and group by */
+
+/*SELECT Sales.Quantity, Sales.EmployeeID, Employees.FirstName, Employees.LastName FROM Sales
+INNER JOIN Employees ON Sales.EmployeeID = Employees.EmployeeID
+ORDER BY Sales.Quantity Desc;*/
+
 
 /* joins: find the name of the department, and the name of the category for Appliances and Games */
 
